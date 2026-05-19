@@ -95,24 +95,36 @@
 
 // ── Background Music ───────────────────────
 
+/* ── Background Music FIX GITHUB PAGES ── */
+
 const music = document.getElementById('bgMusic');
 const toggle = document.getElementById('musicToggle');
 
-function startMusic() {
-  music.play().catch(() => {});
+music.volume = 0.7;
+
+function playMusic() {
+  music.play()
+    .then(() => {
+      console.log("music playing");
+    })
+    .catch((err) => {
+      console.log("blocked:", err);
+    });
 }
 
-window.addEventListener('load', startMusic);
+/* START setelah user interaksi */
+document.body.addEventListener('click', playMusic, { once: true });
+document.body.addEventListener('touchstart', playMusic, { once: true });
 
-document.addEventListener('click', startMusic, { once: true });
-document.addEventListener('touchstart', startMusic, { once: true });
-
+/* tombol */
 toggle.addEventListener('click', () => {
+
   if (music.paused) {
     music.play();
-    toggle.innerHTML = '🎵 Music On';
+    toggle.innerHTML = "🎵 Music On";
   } else {
     music.pause();
-    toggle.innerHTML = '🔇 Music Off';
+    toggle.innerHTML = "🔇 Music Off";
   }
+
 });
